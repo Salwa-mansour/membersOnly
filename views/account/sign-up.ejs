@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1><%= locals.title  %></h1>
+    <form action="signup" method="post">
+        <label for="firstName">first name </label>
+        <input type="text" name="firstName"  id="firestName" value="<%= locals.user.firstName || " " %>">
+       
+        <label for="lastName">last name </label>
+        <input type="text" name="lastName"  id="lastName" value="<%= locals.user.lastName  %>"  >
+        
+        <label for="email">email</label>
+        <input type="email" name="email" id="email" value="<%= locals.user.email  %>" >
+
+        <label for="password">password</label>
+        <input type="password" name="password" id="password" value="<%= locals.user.password  %>">
+       
+        <label for="confirmPassword">confirmPassword</label>
+        <input type="password" id="confirmPassword" name="confirmPassword">
+   
+        <button type="submit">submit</button>
+           <% if (locals.errors) { %>
+            <h1>we hav error</h1>
+                <%- include('../parts/errors') %>
+           <% } %>
+    </form>
+</body>
+</html>
