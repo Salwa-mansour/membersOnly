@@ -41,7 +41,7 @@ const signupValidation = [
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       // If validation fails, rerender the form
-      console.log(errors.array())
+   
       return res.render('account/sign-up', {
         errors: errors.array(),
         user: {
@@ -54,7 +54,29 @@ const signupValidation = [
     }
     return next();
   }
+const signInValidation = [
+  ...createRequiredStringValidation('email', ' email is required'),
+      body('email').isEmail().withMessage('Invalid email format'),
+  ...createRequiredStringValidation('password', 'password is required'),
+];
+  const handleValidationSignInErrors  = (req, res,next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      // If validation fails, rerender the form
+   
+      return res.render('account/sign-in', {
+        errors: errors.array(),
+        user: {
+            email:req.body.email,
+            password:req.body.password,
+        }
+      });
+    }
+    return next();
+  }
   module.exports = {
     signupValidation,
-    handleValidationSignupErrors
+    handleValidationSignupErrors,
+    signInValidation,
+    handleValidationSignInErrors
 }

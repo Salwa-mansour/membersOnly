@@ -21,9 +21,11 @@ async function signupAccount(req, res){
   res.redirect("/signin");
 }
 async function signinGet(req, res){
- 
+  const wrongEmail = req.flash('oldEmail')[0] || ""; // Flash returns an array, so take the first element
+  
  res.render("account/sign-in", {
     title: "sign in",
+    user: {email:wrongEmail},
     messages: req.flash('error') 
   });
 }
