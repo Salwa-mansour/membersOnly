@@ -14,7 +14,19 @@ isMember BOOLEAN DEFAULT FALSE ,
 isAdmin BOOLEAN DEFAULT FALSE
 
  );
- 
+CREATE TABLE IF NOT EXISTS messages (
+    id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    title VARCHAR(255) NOT NULL,
+    text TEXT NOT NULL,
+    createdAt TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    authorId INTEGER NOT NULL, 
+    
+  
+    CONSTRAINT fk_author
+        FOREIGN KEY(authorId) 
+        REFERENCES users(id)
+        ON DELETE CASCADE 
+);
 `;
 async function main() {
     console.log("seeding...");

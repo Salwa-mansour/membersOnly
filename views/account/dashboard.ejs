@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>welcom <%= locals.user.firstname  %></h1>
+    <form action="setMember" method="POST">
+        <label for="isMember">are you a member? get us secret key</label>
+        <input type="text" name="isMember" id="isMember">
+        <label for="isAdmin">are you a admin? get us secret key</label>
+        <input type="text" name="isAdmin" id="isAdmin">
+
+        <button type="submit">submit</button>
+    </form>
+</body>
+</html>

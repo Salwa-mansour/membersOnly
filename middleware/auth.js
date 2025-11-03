@@ -22,12 +22,23 @@ function createLoginMiddleware(strategy) {
         if (err) {
           return next(err);
         }
-        return res.redirect('/dashboard');
+        return next();
       });
     })(req, res, next);
   };
 }
+// Middleware to ensure a user is logged in
+function ensureAuthenticated(req, res, next) {
 
+  if (req.isAuthenticated()) {
+    // If the user is logged in, continue to the next middleware or route handler
+    return next(); 
+  }
+  // If not logged in, redirect them to the login page with a flash message
+  req.flash('error', 'Please log in to view this resource.');
+  res.redirect('/signin');
+}
 module.exports = {
-  login: createLoginMiddleware('local')
+  login: createLoginMiddleware('local'),
+  ensureAuthenticated
 };

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+      <%- include('../parts/nav.ejs') %>
+
+     <% if(locals.user){ %>
+         <% if(locals.user.ismember){ %>
+            <form action="createMessage" method="post">
+                <caption>create new message</caption>
+                <label for="title">title</label>
+                <input type="text" name="title" id="title">
+                <label for="message">message</label>
+                <textarea name="message" id="message" ></textarea>
+
+                <button type="submit">submit</button>
+            </form>  
+         <% } %>
+     <% } %>
+    <ul>
+        <h2><%= locals.title  %></h2>
+        <% locals.messages.forEach(message => { %>
+             <li>
+            <h4> <%= message.title  %></h4>
+            <p><%= message.text  %></p>
+                <% if(locals.user){ %>
+                    <% if(locals.user.ismember){ %>
+                    <strong><%= message.author  %></strong>
+                    <%}%>
+                <%}%>
+            <small><%= message.date  %></small>
+        </li>
+       <% });  %>
+       
+    </ul>
+</body>
+</html>

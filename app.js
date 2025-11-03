@@ -3,6 +3,7 @@ const express = require("express")
 const app = express();
 const path = require("path");
 const dotenv =require('dotenv');
+dotenv.config({ path: 'config.env' });
 // --------------
 const session = require('express-session');
 const pgSession = require('connect-pg-simple')(session);
@@ -10,7 +11,7 @@ const passport = require('passport');
 const flash = require('connect-flash');
 const pool = require('./db/pool'); // Your PostgreSQL connection pool
 // --------------
-dotenv.config({ path: 'config.env' });
+
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -45,8 +46,8 @@ require('./middleware/passportConfig')(passport);
 
 //routes
  app.use('/',require(path.join(__dirname,'routs','accountRouter')));
-// app.use('/authors',require(path.join(__dirname,'routers','authorRouter')));
-// app.use('/books',require(path.join(__dirname,'routers','bookRouter')));
+ app.use('/',require(path.join(__dirname,'routs','messageRouter')));
+
 //------------------
 app.use('/{*splat}', async (req, res) => {
    // *splat matches any path without the root path. If you need to match the root path as well /, you can use /{*splat}, wrapping the wildcard in braces.

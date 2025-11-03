@@ -30,12 +30,24 @@ module.exports = function(passport) {
   });
 
   // Retrieve user object from the session using the ID
-  passport.deserializeUser(async (id, done) => {
-    try {
-      const user = await db.findById(id);
-      done(null, user);
-    } catch (err) {
-      done(err);
+passport.deserializeUser(async (id, done) => {
+  try {
+    // Assume you have a function to find a user by their ID in your database
+    const user = await db.findUserById(id); // Your DB function should return null/undefined if not found
+
+    if (user) {
+      // User found, proceed with the session
+      return done(null, user);
+    } else {
+      // !!! IMPORTANT !!!
+      // User not found in DB (because they were deleted).
+      // Pass 'false' to 'done' to invalidate the current session gracefully.
+      return done(null, false); 
     }
-  });
+    
+  } catch (err) {
+    // Handle any database connectivity errors
+    return done(err);
+  }
+});
 };
